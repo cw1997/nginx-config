@@ -1,0 +1,25 @@
+language: bash
+services:
+- docker
+sudo: required
+branches:
+  only:
+  - master
+  - develop
+before_install:
+- openssl aes-256-cbc -K $encrypted_1d0e21a38f0f_key -iv $encrypted_1d0e21a38f0f_iv
+  -in qcloud.pem.enc -out /tmp/qcloud.pem -d
+- chmod 600 /tmp/qcloud.pem
+- ssh-add /tmp/qcloud.pem
+- export TZ='Asia/Shanghai'
+before_script:
+- docker login -u changwei1997 -p ${DOCKER_HUB_PASSWORD}
+script:
+- docker build . -t changwei1997/changwei.me:latest
+- docker push changwei1997/changwei.me:latest
+after_success:
+- echo "Build Success! Start Deploy to server"
+- rsync -av --delete ./ root@${QCLOUD_SERVER_HOST}:/root/nginx
+- ssh root@${QCLOUD_SERVER_HOST} 'mkdir -p /root/docker/nginx && docker-compose down && docker-compose up -d --force-recreate'
+after_failure: 
+- echo "Build Failure!"

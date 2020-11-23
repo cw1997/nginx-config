@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    container_name: nginx-server
+    image: changwei1997/nginx:latest
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - "/root/nginx/www:/usr/share/nginx/html"
+      - "/root/nginx/conf:/etc/nginx"
+      - "/root/nginx/logs:/var/log/nginx"
+    expose:
+      - "80"
+# volumes:
+#   nginx: {}
+  
