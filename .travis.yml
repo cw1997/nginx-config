@@ -17,8 +17,8 @@ before_install:
 before_script:
 - docker login -u changwei1997 -p ${DOCKER_HUB_PASSWORD}
 script:
-- docker build . -t changwei1997/changwei.me:latest
-- docker push changwei1997/changwei.me:latest
+- docker build . -t changwei1997/nginx:latest
+- docker push changwei1997/nginx:latest
 after_success:
 - echo "Build Success! Start Deploying to server"
 - rsync -av --delete ./ root@${QCLOUD_SERVER_HOST}:/root/docker/nginx
