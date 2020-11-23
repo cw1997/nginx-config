@@ -7,10 +7,12 @@ branches:
   - master
   - develop
 before_install:
-- openssl aes-256-cbc -K $encrypted_1d0e21a38f0f_key -iv $encrypted_1d0e21a38f0f_iv
+- openssl aes-256-cbc -K $encrypted_d3ce56c58ad6_key -iv $encrypted_d3ce56c58ad6_iv
   -in qcloud.pem.enc -out /tmp/qcloud.pem -d
 - chmod 600 /tmp/qcloud.pem
+- eval `ssh-agent -s`
 - ssh-add /tmp/qcloud.pem
+- ssh-keyscan ${QCLOUD_SERVER_HOST} >> ~/.ssh/known_hosts
 - export TZ='Asia/Shanghai'
 before_script:
 - docker login -u changwei1997 -p ${DOCKER_HUB_PASSWORD}
@@ -18,8 +20,8 @@ script:
 - docker build . -t changwei1997/changwei.me:latest
 - docker push changwei1997/changwei.me:latest
 after_success:
-- echo "Build Success! Start Deploy to server"
+- echo "Build Success! Start Deploying to server"
 - rsync -av --delete ./ root@${QCLOUD_SERVER_HOST}:/root/docker/nginx
 - ssh root@${QCLOUD_SERVER_HOST} 'docker-compose down && docker-compose up -d --force-recreate'
-after_failure: 
+after_failure:
 - echo "Build Failure!"
