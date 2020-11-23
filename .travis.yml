@@ -21,8 +21,8 @@ script:
 - docker push changwei1997/nginx:latest
 after_success:
 - echo "Build Success! Start Deploying to server"
-- ssh ${SERVER_USER}@${SERVER_HOST} 'mkdir -p /var/docker/nginx/www /var/docker/nginx/conf /var/docker/nginx/logs'
+- ssh ${SERVER_USER}@${SERVER_HOST} 'sudo mkdir -m 775 -p /var/docker/nginx/www /var/docker/nginx/conf /var/docker/nginx/logs'
 - rsync -av --delete ./ {SERVER_USER}@${SERVER_HOST}:/var/docker/nginx/
-- ssh ${SERVER_USER}@${SERVER_HOST} 'docker-compose down && docker-compose up -d --force-recreate'
+- ssh ${SERVER_USER}@${SERVER_HOST} 'cd /var/docker/nginx && sudo docker-compose down && sudo docker-compose up -d --force-recreate'
 after_failure:
 - echo "Build Failure!"
