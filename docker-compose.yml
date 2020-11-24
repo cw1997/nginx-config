@@ -7,9 +7,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "/var/docker/nginx/www:/usr/share/nginx/html"
-      - "/var/docker/nginx/conf:/etc/nginx"
-      - "/var/docker/nginx/logs:/var/log/nginx"
+      - "/root/docker/nginx/www:/usr/share/nginx/html"
+      - "/root/docker/nginx/conf:/etc/nginx"
+      - "/root/docker/nginx/logs:/root/log/nginx"
     expose:
       - "80"
 # volumes:
