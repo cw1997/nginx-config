@@ -3,7 +3,6 @@ services:
   web:
     container_name: nginx-server
     image: changwei1997/nginx:latest
-    build: .
     ports:
       - "80:80"
     volumes:
