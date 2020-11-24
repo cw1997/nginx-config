@@ -8,9 +8,8 @@ services:
     volumes:
       - "/root/docker/nginx/www:/usr/share/nginx/html"
       - "/root/docker/nginx/conf:/etc/nginx"
-      - "/root/docker/nginx/logs:/root/log/nginx"
+      - "/root/docker/nginx/logs:/var/log/nginx"
     expose:
       - "80"
 # volumes:
 #   nginx: {}
-  
