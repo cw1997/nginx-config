@@ -9,5 +9,8 @@ services:
       - "/root/docker/nginx/logs:/var/log/nginx"
     expose:
       - "80"
+    links:
+      - "changwei-homepage"
+      - "changwei-homepage-dev"
 # volumes:
 #   nginx: {}
