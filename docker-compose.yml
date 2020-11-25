@@ -11,6 +11,6 @@ services:
       - "80"
     external_links:
       - "changwei-homepage"
-      - "changwei-homepage-dev"
+      # - "changwei-homepage-dev"
 # volumes:
 #   nginx: {}
