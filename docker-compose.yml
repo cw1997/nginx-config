@@ -9,8 +9,7 @@ services:
       - "/root/docker/nginx/logs:/var/log/nginx"
     expose:
       - "80"
-    external_links:
-      - changwei-homepage
-      # - "changwei-homepage-dev"
+    networks:
+      - nginx_bridge
 # volumes:
 #   nginx: {}
