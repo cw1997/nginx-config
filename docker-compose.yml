@@ -10,7 +10,7 @@ services:
     expose:
       - "80"
     external_links:
-      - "changwei-homepage"
+      - changwei-homepage
       # - "changwei-homepage-dev"
 # volumes:
 #   nginx: {}
