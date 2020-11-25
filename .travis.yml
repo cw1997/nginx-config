@@ -23,6 +23,6 @@ after_success:
 - echo "Build Success! Start Deploying to server"
 - ssh ${SERVER_USER}@${SERVER_HOST} 'sudo mkdir -m 775 -p /root/docker/nginx /root/docker/nginx/logs'
 - rsync -av --delete ./docker-compose.yml ${SERVER_USER}@${SERVER_HOST}:/root/docker/nginx/
-- ssh ${SERVER_USER}@${SERVER_HOST} 'cd /root/docker/nginx && docker-compose down && docker-compose up -d --force-recreate'
+- ssh ${SERVER_USER}@${SERVER_HOST} 'cd /root/docker/nginx && docker-compose down --rmi all && docker-compose up -d --force-recreate'
 after_failure:
 - echo "Build Failure!"
