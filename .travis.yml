@@ -1,7 +1,8 @@
-language: bash
+language: shell
+os: linux
+dist: xenial
 services:
 - docker
-sudo: required
 branches:
   only:
   - master
