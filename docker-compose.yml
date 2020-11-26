@@ -13,3 +13,6 @@ services:
       - nginx_bridge
 # volumes:
 #   nginx: {}
+networks:
+  nginx_bridge:
+    external: true
