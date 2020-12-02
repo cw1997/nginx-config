@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "/root/docker/nginx/logs:/var/log/nginx"
+      - "/root/docker/nginx/volume/logs:/var/log/nginx"
     expose:
       - "80"
     networks:
