@@ -1,5 +1,5 @@
 # nginx-config
 
-[![Build Status](https://travis-ci.org/cw1997/nginx-config.svg?branch=master)](https://travis-ci.org/cw1997/nginx-config)
+[![CircleCI](https://circleci.com/gh/cw1997/nginx-config.svg?style=svg&style=shield)](https://circleci.com/gh/cw1997/nginx-config)
 
 nginx config on my server
