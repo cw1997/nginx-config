@@ -40,9 +40,9 @@ commands:
           name: Deploy to HOST_QCLOUD_SH_1_HOST
           command: |
             ssh-keyscan "${HOST_QCLOUD_SH_1_IP}" >> ~/.ssh/known_hosts 2>/dev/null
-            ssh ${SERVER_USER}@${SERVER_HOST} 'sudo mkdir -m 775 -p /root/docker/nginx /root/docker/nginx/logs'
-            rsync -av --delete ./docker-compose.yml ${SERVER_USER}@${SERVER_HOST}:/root/docker/nginx/
-            ssh ${SERVER_USER}@${SERVER_HOST} 'cd /root/docker/nginx && docker-compose down --rmi all && docker-compose up -d --force-recreate'
+            ssh ${HOST_QCLOUD_SH_1_USER}@${HOST_QCLOUD_SH_1_IP} 'sudo mkdir -m 775 -p /root/docker/nginx /root/docker/nginx/logs'
+            rsync -av --delete ./docker-compose.yml ${HOST_QCLOUD_SH_1_USER}@${HOST_QCLOUD_SH_1_IP}:/root/docker/nginx/
+            ssh ${HOST_QCLOUD_SH_1_USER}@${HOST_QCLOUD_SH_1_IP} 'cd /root/docker/nginx && docker-compose down --rmi all && docker-compose up -d --force-recreate'
 
 jobs:
   deploy:
