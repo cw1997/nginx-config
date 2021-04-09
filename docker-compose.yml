@@ -11,8 +11,11 @@ services:
       - "80"
     networks:
       - nginx_bridge
+      # - harbor_harbor
 # volumes:
 #   nginx: {}
 networks:
   nginx_bridge:
     external: true
+  # harbor_harbor:
+  #   external: true
