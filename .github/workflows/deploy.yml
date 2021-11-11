@@ -15,15 +15,15 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag changwei1997:latest
+        docker build . --file Dockerfile --tag changwei-nginx:latest
         docker login --username changwei1997 --password ${{ secrets.DOCKER_HUB_PASSWORD }}
-        docker push changwei1997/nginx:latest
+        docker push changwei1997/changwei-nginx:latest
 
   copy-docker-compose-file:
       name: copy docker composer file
       needs: build-docker-image
       runs-on: ubuntu-latest
-      
+
       steps:
       - name: get docker-compose.yml
         uses: actions/download-artifact@v1
