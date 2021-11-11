@@ -34,7 +34,7 @@ jobs:
         remote_path: /home/ubuntu/docker/nginx/docker-compose.yml
         remote_host: ${{ secrets.QCLOUD_HOST }}
         remote_user: ${{ secrets.QCLOUD_USER }}
-        remote_key: ${{ secrets.DEPLOY_KEY }}
+        remote_key: ${{ secrets.QCLOUD_PRIVATE_KEY }}
 
   deploy:
     name: deploy to production server
