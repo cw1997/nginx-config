@@ -21,7 +21,6 @@ jobs:
         docker push changwei1997/changwei-nginx:latest
 
   copy-docker-compose-file:
-    name: copy docker compose file to production server
     needs: build-docker-image
     runs-on: ubuntu-latest
     steps:
@@ -44,8 +43,7 @@ jobs:
         remote_user: ${{ secrets.QCLOUD_USER }}
         remote_key: ${{ secrets.QCLOUD_PRIVATE_KEY }}
 
-  deploy:
-    name: deploy to production server
+  deploy-to-production-environment:
     needs: copy-docker-compose-file
     runs-on: ubuntu-latest
     steps:
