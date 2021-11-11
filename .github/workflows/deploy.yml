@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: build Docker image and push to docker hub
       run: |
         docker build . --file Dockerfile --tag changwei-nginx:latest
         docker login --username changwei1997 --password ${{ secrets.DOCKER_HUB_PASSWORD }}
@@ -21,6 +21,9 @@ jobs:
         docker push changwei1997/changwei-nginx:latest
 
   copy-docker-compose-file:
+    name: copy docker compose file to production server
+    needs: build-docker-image
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: rsync deployments
@@ -31,7 +34,7 @@ jobs:
         args: "-avzr --delete ./docker-compose.yml ${{ env.QCLOUD_USER }}@${{ env.QCLOUD_HOST }}:/home/ubuntu/docker/nginx/"
 
   deploy:
-    name: deploy to production
+    name: deploy to production server
     needs: copy-docker-compose-file
     runs-on: ubuntu-latest
     steps:
