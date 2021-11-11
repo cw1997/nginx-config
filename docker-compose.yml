@@ -7,7 +7,6 @@ services:
       - "80:80"
     volumes:
       - "/home/ubuntu/docker/nginx/volume/logs:/var/log/nginx"
-      - "/home/ubuntu/docker/nginx/volume/conf:/etc/nginx"
     expose:
       - "80"
     networks:
