@@ -4,6 +4,6 @@ server { # simple reverse-proxy
   server_name  changwei.me www.changwei.me;
   access_log   /var/log/nginx/www.changwei.me/access.log  main;
   location / {
-    proxy_pass      http://127.0.0.1:30001;
+    proxy_pass      http://changwei-homepage:30001;
   }
 }
