@@ -1,0 +1,66 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag changwei1997:latest
+        docker login --username changwei1997 --password ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker push changwei1997/nginx:latest
+
+  copy-docker-compose-file:
+      name: copy docker composer file
+      needs: build-docker-image
+      runs-on: ubuntu-latest
+      
+      steps:
+      - name: get docker-compose.yml
+        uses: actions/download-artifact@v1
+        with:
+          name: docker-compose.yml
+
+      - name: rsync deployments
+        uses: contention/rsync-deployments@v1.0.0
+        env:
+          DEPLOY_KEY: ${{ secrets.QCLOUD_PRIVATE_KEY }}
+        with:
+          args: "-avzr --delete ${{ env.QCLOUD_USER }}@${{ env.QCLOUD_HOST }}:/root/docker/nginx/"
+
+  deploy:
+    name: deploy to production
+    needs: copy-docker-compose-file
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run SSH command
+      # You may pin to the exact commit or the version.
+      # uses: garygrossgarten/github-action-ssh@d2ce399984eed21f8cf2a26d28ba309e1ed52fc5
+      uses: garygrossgarten/github-action-ssh@v0.6.3
+      with:
+        # Command to execute on the remote server.
+        command: |
+          cd /root/docker/nginx && docker-compose down --rmi all && docker-compose up -d --force-recreate
+        # Hostname or IP address of the server.
+        host: ${{ secrets.QCLOUD_HOST }}
+        # Username for authentication.
+        username: ${{ secrets.QCLOUD_USER }}
+        # Port number of the server.
+        # port: 22
+        # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
+        privateKey: ${{ secrets.QCLOUD_PRIVATE_KEY }}
+        # Password for password-based user authentication.
+        # password: # optional
+        # For an encrypted private key, this is the passphrase used to decrypt it.
+        # passphrase: # optional
+        # Try keyboard-interactive user authentication if primary user authentication method fails.
+        # tryKeyboard: # optional
