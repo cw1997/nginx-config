@@ -26,12 +26,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: rsync deployments
-      uses: contention/rsync-deployments@v1.0.0
-      env:
-        DEPLOY_KEY: ${{ secrets.QCLOUD_PRIVATE_KEY }}
+    - name: rsync docker-compose.yml to production server
+      uses: Burnett01/rsync-deployments@5.1
       with:
-        args: "-avzr --delete ./docker-compose.yml ${{ env.QCLOUD_USER }}@${{ env.QCLOUD_HOST }}:/home/ubuntu/docker/nginx/"
+        switches: -avzr --delete
+        path: ./docker-compose.yml
+        remote_path: /home/ubuntu/docker/nginx/docker-compose.yml
+        remote_host: ${{ secrets.QCLOUD_HOST }}
+        remote_user: ${{ secrets.QCLOUD_USER }}
+        remote_key: ${{ secrets.DEPLOY_KEY }}
 
   deploy:
     name: deploy to production server
