@@ -17,7 +17,8 @@ jobs:
       run: |
         docker build . --file Dockerfile --tag changwei-nginx:latest
         docker login --username changwei1997 --password ${{ secrets.DOCKER_HUB_PASSWORD }}
-        docker push changwei-nginx:latest
+        docker tag changwei-nginx:latest changwei1997/changwei-nginx:latest
+        docker push changwei1997/changwei-nginx:latest
 
   copy-docker-compose-file:
       name: copy docker composer file
