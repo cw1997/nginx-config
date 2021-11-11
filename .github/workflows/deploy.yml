@@ -54,7 +54,7 @@ jobs:
       with:
         # Command to execute on the remote server.
         command: |
-          cd /home/ubuntu/docker/nginx && docker-compose down --rmi all && docker-compose up -d --force-recreate
+          cd /home/ubuntu/docker/nginx && sudo docker-compose down --rmi all && sudo docker-compose up -d --force-recreate
         # Hostname or IP address of the server.
         host: ${{ secrets.QCLOUD_HOST }}
         # Username for authentication.
