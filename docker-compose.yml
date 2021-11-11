@@ -6,16 +6,14 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "/root/docker/nginx/volume/logs:/var/log/nginx"
+      - "/home/ubuntu/docker/nginx/volume/logs:/var/log/nginx"
+      - "/home/ubuntu/docker/nginx/volume/conf:/etc/nginx"
     expose:
       - "80"
     networks:
       - nginx_bridge
-      # - harbor_harbor
 # volumes:
 #   nginx: {}
 networks:
   nginx_bridge:
     external: true
-  # harbor_harbor:
-  #   external: true
