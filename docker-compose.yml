@@ -5,10 +5,13 @@ services:
     image: changwei1997/changwei-nginx:latest
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "/home/ubuntu/docker/nginx/volume/logs:/var/log/nginx"
+      - "/home/ubuntu/docker/nginx/volume/ssl:/root/nginx/ssl"
     expose:
       - "80"
+      - "443"
     networks:
       - nginx_bridge
 # volumes:
